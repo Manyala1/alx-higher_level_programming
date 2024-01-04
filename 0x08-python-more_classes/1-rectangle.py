@@ -1,4 +1,4 @@
-#!/usr/bin/ython3
+#!/usr/bin/python3
 """ Rectangle Module-  for rectangular purpose only """
 
 class Rectangle:
