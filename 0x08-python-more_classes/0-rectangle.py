@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"Module: which contain a class rectangle"
+" Module: wich contain a class Rectangle"
+
 
 class Rectangle:
     """ Rectangle class """
