@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 """
-module for my lists (inherits from list)
+module for my lists (inherits form list)
 """
 
 
-class Mylist(list):
+class MyList(list):
     """
     elements of the list int type
     return my list and sorted list
