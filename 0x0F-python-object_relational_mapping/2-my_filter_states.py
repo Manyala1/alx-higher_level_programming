@@ -1,44 +1,28 @@
 #!/usr/bin/python3
-import sys
+"""
+This script takes in an argument and
+displays all values in the states
+where `name` matches the argument
+from the database `hbtn_0e_0_usa`.
+"""
+
 import MySQLdb
+from sys import argv
 
-if __name__ == "__main__":
-    # Getting command line arguments
-    mysql_username = sys.argv[1]
-    mysql_password = sys.argv[2]
-    db_name = sys.argv[3]
-    state_name = sys.argv[4]
+if __name__ == '__main__':
+    """
+    Access to the database and get the states
+    from the database.
+    """
 
-    try:
-        # Connecting to the MySQL server
-        db = MySQLdb.connect(
-            host="localhost",
-            port=3306,
-            user=mysql_username,
-            passwd=mysql_password,
-            db=db_name
-        )
+    db = MySQLdb.connect(host="localhost", user=argv[1], port=3306,
+                         passwd=argv[2], db=argv[3])
 
-        # Creating a cursor object to interact with the database
-        cursor = db.cursor()
+    cur = db.cursor()
+    cur.execute("SELECT * FROM states \
+                 WHERE name LIKE BINARY '{}' \
+                 ORDER BY states.id ASC".format(argv[4]))
+    rows = cur.fetchall()
 
-        # Creating the SQL query with the user input
-        query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-
-        # Executing the SQL query
-        cursor.execute(query, (state_name,))
-
-        # Fetching all the rows from the executed query
-        states = cursor.fetchall()
-
-        # Displaying the results
-        for state in states:
-            print(state)
-
-        # Closing the cursor and database connection
-        cursor.close()
-        db.close()
-
-    except MySQLdb.Error as e:
-        print(f"Error {e.args[0]}: {e.args[1]}")
-
+    for row in rows:
+        print(row)
