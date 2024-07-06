@@ -1,14 +1,20 @@
 #!/usr/bin/python3
 """
-script that fetches https://alx-intranet.hbtn.io/status.
+script that takes in a URL, sends a request to the URL and displays the
+body of the response (decoded in utf-8).
+You have to manage urllib.error.HTTPError exceptions and
+print: Error code: followed by the HTTP status code.
 """
-import requests
+import urllib.request
+import urllib.error
+import sys
 
 
 if __name__ == "__main__":
-    url = "https://alx-intranet.hbtn.io/status"
-    response = requests.get(url)
-    content = response.text
-    print('Body response:')
-    print('\t- type: {}'.format(type(content)))
-    print('\t- content: {}'.format(content))
+    url = sys.argv[1]
+    try:
+        with urllib.request.urlopen(url) as response:
+            response_text = response.read().decode("utf-8")
+            print(response_text)
+    except urllib.error.HTTPError as e:
+        print("Error code: {}".format(e.code))
