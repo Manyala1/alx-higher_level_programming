@@ -2,10 +2,12 @@
 
 const fs = require('fs');
 
-fs.readFile(process.argv[2], 'uf8', function(err, data) {
-	if (err) {
-		console.log(err);
-	} else {
-		process.stdout.write(data);
-	}
-});
+function readAndPrintFile(filePath) {
+	fs.readFile(filePath, 'utf', (err, data) => {
+		if (err) {
+			console.error('Error: ${err.message}');
+		} else {
+			console.log(data);
+		}
+	});
+}
