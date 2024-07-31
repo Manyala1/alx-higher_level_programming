@@ -2,12 +2,10 @@
 
 const fs = require('fs');
 
-function readAndPrintFile(filePath) {
-	fs.readFile(filePath, 'utf8', (err, data) => {
-		if (err) {
-			console.error('Error: ${err.message}');
-		} else {
-			console.log(data);
-		}
-	});
-}
+fs.readFile(process.argv[2], 'utf8', function (err, data) {
+  if (err) {
+    console.log(err);
+  } else {
+    process.stdout.write(data);
+  }
+});
